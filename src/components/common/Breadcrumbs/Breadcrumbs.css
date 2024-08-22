@@ -1,0 +1,30 @@
+.breadDark::after,
+.breadLight::after {
+   content: "";
+   position: absolute;
+   height: 2rem;
+   left: 0;
+   width: 5px;
+   top: -2px;
+   transform: rotate(35deg);
+   transform-origin: top;
+}
+.breadDark::before,
+.breadLight::before {
+   content: "";
+   position: absolute;
+   height: 2rem;
+   left: 0;
+   width: 5px;
+   bottom: -2px;
+   transform: rotate(-35deg);
+   transform-origin: bottom;
+}
+.breadDark::after,
+.breadDark::before {
+   background-color: #111827;
+}
+.breadLight::after,
+.breadLight::before {
+   background-color: #eeeeee;
+}
