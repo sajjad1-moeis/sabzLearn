@@ -8,11 +8,10 @@ const supabase = createClient(
    "https://uzklefihkajdqxvztxas.supabase.co",
    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6a2xlZmloa2FqZHF4dnp0eGFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjM5MDkyODMsImV4cCI6MjAzOTQ4NTI4M30.PjnUotcswjBsAcr7VewNElYdMGdnpub_ihx0WoO_GhA"
 );
-export default function VideoSection(props) {
+export default function VideoSection({data}) {
    const [courseData, fetchCourses] = getDataSuapse();
    const [courseInfo, setCourseInfo] = useState(false);
    let {curseName} = useParams();
-
    useEffect(() => {
       fetchCourses("courseUser");
    }, []);
@@ -23,14 +22,15 @@ export default function VideoSection(props) {
    }, [courseData]);
 
    const clickHandeler = async () => {
-      const {data, error} = await supabase.from("courseUser").insert(props.data);
-      location.reload();
+      console.log(data);
+      await supabase.from("courseUser").insert(data);
+      fetchCourses("courseUser");
    };
 
    return (
       <div className='mt-10 p-5 md:p-0  rounded-xl bg-white dark:bg-darker lg:!bg-transparent  flex flex-col-reverse lg:grid grid-cols-1 lg:grid-cols-2 gap-10 dark:text-white '>
          <div className=''>
-            <h1 className=' text-xl lg:text-[28px] leading-10 danaMediumBold'>{props.data?.title}</h1>
+            <h1 className=' text-xl lg:text-[28px] leading-10 danaMediumBold'>{data?.title}</h1>
             <h3 className='my-4 lg:text-lg  '>
                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و
                متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز
@@ -56,11 +56,8 @@ export default function VideoSection(props) {
             </div>
          </div>
          <div className='overflow-hidden rounded-xl'>
-            <video controls className='size-full'>
-               <source
-                  src='https://tech.sabzlearn.ir/uploads/amscan/ceh_v11/ceh1.mp4?h=alle47rRp8Kd2Q3xV--W0w&amp;t=1724145108'
-                  type='video/mp4'
-               />
+            <video controls playsInline poster={data?.videoUrl[0].poster} className='size-full'>
+               <source src={data?.videoUrl[0].video} type='video/mp4' />
             </video>
          </div>
       </div>

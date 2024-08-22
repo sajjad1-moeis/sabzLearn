@@ -46,3 +46,30 @@ const TABLE_ROWS = [
 ];
 
 export {itemNav, itemUserDashboard, sidBarItemData, TABLE_ROWS};
+
+// let a = [
+//    {
+//       "title": "دوره tailwind",
+//       "id": 12,
+//    },
+//    {
+//       "title": "دوره next",
+//       "id": 15,
+//    },
+//    {
+//       "title": "دوره flexBox",
+//       "id": 17,
+//    },
+//    {
+//       "title": "دوره js",
+//       "id": 20,
+//    },
+//    {
+//       "title": "دوره css",
+//       "id": 22,
+//    },
+//    {
+//       "title": "دوره html",
+//       "id": 21,
+//    },
+// ];

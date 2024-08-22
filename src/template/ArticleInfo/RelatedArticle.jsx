@@ -1,10 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ClipboardBox from "../../components/ClipboardBox";
 import AccordianCustom from "../../components/AccordianCustom/AccordianCustom";
 import {BsShare} from "react-icons/bs";
 import {HiOutlineAcademicCap} from "react-icons/hi2";
 import {Link} from "react-router-dom";
+import getDataSuapse from "../../../utils/getDataSuapse";
 export default function RelatedArticle() {
+   let [courseData, fetchCourses] = getDataSuapse();
+
+   useEffect(() => {
+      fetchCourses("courses");
+   }, []);
+
    return (
       <div>
          <AccordianCustom
@@ -24,36 +31,14 @@ export default function RelatedArticle() {
                </div>
             }
          >
-            <div className=' py-5 border-b border-white/10 dark:text-white'>
-               <Link to='/curse-info/js' className='flex gap-3'>
-                  <img
-                     className='h-14'
-                     src='https://sabzlearn.ir/wp-content/uploads/2023/12/HTML-852x479-2-1-1.webp'
-                     alt=''
-                  />
-                  <p className='text-sm leading-7'>آموزش HTML رایگان مقدماتی تا پیشرفته</p>{" "}
-               </Link>
-            </div>
-            <div className=' py-5 border-b border-white/10 dark:text-white'>
-               <Link to='/curse-info/js' className='flex gap-3'>
-                  <img
-                     className='h-14'
-                     src='https://sabzlearn.ir/wp-content/uploads/2023/12/HTML-852x479-2-1-1.webp'
-                     alt=''
-                  />
-                  <p className='text-sm leading-7'>آموزش HTML رایگان مقدماتی تا پیشرفته</p>{" "}
-               </Link>
-            </div>
-            <div className=' py-5 dark:text-white'>
-               <Link to='/curse-info/js' className='flex gap-3'>
-                  <img
-                     className='h-14'
-                     src='https://sabzlearn.ir/wp-content/uploads/2023/12/HTML-852x479-2-1-1.webp'
-                     alt=''
-                  />
-                  <p className='text-sm leading-7'>آموزش HTML رایگان مقدماتی تا پیشرفته</p>{" "}
-               </Link>
-            </div>
+            {courseData?.slice(0, 4).map((item) => (
+               <div className=' py-5 border-b border-white/10 dark:text-white'>
+                  <Link to={`/course/${item.id}`} className='flex gap-3'>
+                     <img className='h-14' src={item.cover} alt='' />
+                     <p className='text-sm leading-7 line-clamp-1'>{item.title}</p>{" "}
+                  </Link>
+               </div>
+            ))}
          </AccordianCustom>
       </div>
    );

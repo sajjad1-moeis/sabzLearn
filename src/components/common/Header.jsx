@@ -8,6 +8,7 @@ import {IoMoonOutline} from "react-icons/io5";
 import {HiOutlineUser} from "react-icons/hi2";
 import {itemUserDashboard} from "../../../routes/data";
 import {IoPower} from "react-icons/io5";
+import getDataSuapse from "../../../utils/getDataSuapse";
 function ItemMenuUser(props) {
    return (
       <Link
@@ -24,6 +25,9 @@ function ItemMenuUser(props) {
 
 export default function Header() {
    // Handeler Dark Mode And Light Mode
+
+   let [courseData, fetchCourse] = getDataSuapse();
+
    const [open, setOpen] = useState(false);
    const clickHandeler = () => {
       const is = JSON.parse(localStorage.getItem("theme"));
@@ -39,6 +43,9 @@ export default function Header() {
          setInputSearch("");
       }
    };
+   useEffect(() => {
+      fetchCourse("menu");
+   }, []);
 
    return (
       <div className='flex justify-between items-center  dark:bg-darker py-12 bg-white mx-auto max-w-[1920px] h-[84px] md:h-25 px-4 lg:px-12'>
@@ -48,20 +55,31 @@ export default function Header() {
                <img className='h-12' loading='lazy' src='/img/Header/logo.webp' alt='' />
             </Link>
 
-            <div className='hidden lg:flex items-center gap-7'>
-               {itemNav.map((item) => (
-                  <MenuCustom
-                     {...item}
-                     hover
-                     position='bottom-end'
-                     offset={25}
-                     arrow
-                     className='dark:bg-darker border-y border-x-0 border-success shadow-none '
-                  >
-                     {item.arrMenu.map((subItem) => (
-                        <p className='text-right p-3 ps-10 dark:text-white'>{subItem}</p>
-                     ))}
-                  </MenuCustom>
+            <div className='hidden lg:flex items-center gap-7 dark:text-white'>
+               {courseData?.map((item) => (
+                  <>
+                     {item.submenu ? (
+                        <MenuCustom
+                           removeMenuList={false}
+                           {...item}
+                           hover
+                           position='bottom-end'
+                           offset={25}
+                           arrow
+                           className='dark:bg-darker border-y border-x-0 border-success shadow-none '
+                        >
+                           {item.submenu?.map((subItem) => (
+                              <Link to={`/course/${subItem.id}`} className='outline-none '>
+                                 <div className='text-right p-3 ps-10 transition-all  hover:text-success'>
+                                    {subItem.title}
+                                 </div>
+                              </Link>
+                           ))}
+                        </MenuCustom>
+                     ) : (
+                        <Link>{item.title}</Link>
+                     )}
+                  </>
                ))}
             </div>
             {/* {itemNav.map(item)} */}

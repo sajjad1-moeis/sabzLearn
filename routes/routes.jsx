@@ -50,6 +50,8 @@ const CurseInfo = lazy(() => import("../src/pages/CurseInfo"));
 const NotFound = lazy(() => import("../src/template/NotFound/NotFound"));
 const Articles = lazy(() => import("../src/pages/Articles"));
 const ArticleInfo = lazy(() => import("../src/pages/ArticleInfo"));
+const Login = lazy(() => import("../src/pages/Login"));
+const Register = lazy(() => import("../src/pages/Register"));
 
 const MyAccount = lazy(() => import("../src/pages/MyAccount"));
 const HomeMyAccount = lazy(() => import("../src/template/MyAccount/HomeMyAccount"));
@@ -75,8 +77,8 @@ let routes = [
          {path: "edit-account", element: <EditMyAccount />},
       ],
    },
-   // {path: "/login", element: <Login />},
-   // {path: "/register", element: <Register />},
+   {path: "/login", element: <Login />},
+   {path: "/register", element: <Register />},
 
    {path: "*", element: <NotFound />},
 ];

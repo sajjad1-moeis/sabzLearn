@@ -10,14 +10,13 @@ export function MenuCustom(props) {
                className='fixed size-full backdrop-blur-xl z-[50] top-0 right-0 '
             />
          )}
-
          <MenuHandler>
             <button className='dark:text-white outline-none flex items-center gap-2 '>
                {props.title}
                {props.arrow && <SlArrowDown className='text-[10px]' />}
             </button>
          </MenuHandler>
-         <MenuList className={props.className}>{props.children}</MenuList>
+         <MenuList className={`dark:text-white text-black ${props.className}`}>{props.children}</MenuList>
       </Menu>
    );
 }

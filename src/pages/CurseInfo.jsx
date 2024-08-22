@@ -10,6 +10,7 @@ import RelatedCourse from "../template/Course_info/RelatedCourse";
 import Comments from "../template/Course_info/Comments";
 import getDataSuapse from "../../utils/getDataSuapse";
 import {useParams} from "react-router-dom";
+
 export default function CurseInfo() {
    const [courseData, fetchCourses] = getDataSuapse();
    const [courseInfo, setCourseInfo] = useState(null);
@@ -24,7 +25,7 @@ export default function CurseInfo() {
    useEffect(() => {
       fetchCourses("courses");
       window.scrollTo(0, 0);
-   }, []);
+   }, [curseName]);
 
    useEffect(() => {
       let findCourse = courseData.find((item) => item.id == curseName);
@@ -45,7 +46,7 @@ export default function CurseInfo() {
                   <Comments />
                </div>
                <div className='lg:col-span-1'>
-                  <StudentAndStar />
+                  <StudentAndStar data={courseInfo} />
                   <TeacherSection data={courseInfo} />
                </div>
             </div>
